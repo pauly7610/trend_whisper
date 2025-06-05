@@ -30,7 +30,7 @@ const categoryData = {
         investment: '$25K',
         reasoning: 'Clean Girl Makeup trend showing explosive growth with 6+ month projected lifespan. Perfect for minimalist beauty consumers.',
         trends: ['Clean Girl Makeup', 'Glass Skin Routine', 'Strawberry Makeup'],
-        products: mockRelatedProducts.slice(0, 3)
+        products: mockRelatedProducts.beauty.makeup
       },
       {
         id: 'b2',
@@ -41,7 +41,7 @@ const categoryData = {
         investment: '$35K',
         reasoning: 'Glass Skin routine driving demand for hydrating serums and lightweight moisturizers with K-beauty influence.',
         trends: ['Glass Skin Routine', 'Korean Skincare', 'Hyaluronic Acid'],
-        products: mockRelatedProducts.slice(1, 4)
+        products: mockRelatedProducts.beauty.skincare
       },
       {
         id: 'b3',
@@ -52,7 +52,7 @@ const categoryData = {
         investment: '$15K',
         reasoning: 'Facial tools gaining traction with wellness-focused consumers, especially gua sha and jade rollers.',
         trends: ['Facial Tools', 'Gua Sha', 'Self Care Rituals'],
-        products: mockRelatedProducts.slice(2, 4)
+        products: mockRelatedProducts.beauty.tools
       }
     ]
   },
@@ -69,7 +69,7 @@ const categoryData = {
         investment: '$45K',
         reasoning: 'Y2K revival driving wide leg jeans with massive growth potential across age demographics.',
         trends: ['Wide Leg Jeans', 'Y2K Fashion', 'Baggy Fits'],
-        products: mockRelatedProducts.slice(0, 3)
+        products: mockRelatedProducts.apparel.bottoms
       },
       {
         id: 'a2',
@@ -80,7 +80,7 @@ const categoryData = {
         investment: '$30K',
         reasoning: 'Bubble skirts and mini dresses trending with Gen Z, perfect for spring/summer collections.',
         trends: ['Bubble Skirts', 'Mini Dresses', 'Preppy Core'],
-        products: mockRelatedProducts.slice(1, 3)
+        products: mockRelatedProducts.apparel.dresses
       },
       {
         id: 'a3',
@@ -91,7 +91,7 @@ const categoryData = {
         investment: '$20K',
         reasoning: 'Vintage band tees showing sustained popularity with authentic vintage pieces commanding premium prices.',
         trends: ['Vintage Band Tees', 'Grunge Revival', 'Oversized Fits'],
-        products: mockRelatedProducts.slice(0, 2)
+        products: mockRelatedProducts.apparel.tops
       }
     ]
   },
@@ -108,7 +108,7 @@ const categoryData = {
         investment: '$15K',
         reasoning: 'Minimalist jewelry trend aligns with mindful consumption, sustained growth expected with gold pieces.',
         trends: ['Minimalist Jewelry', 'Chunky Gold Chains', 'Pearl Accessories'],
-        products: mockRelatedProducts.slice(0, 2)
+        products: mockRelatedProducts.accessories.jewelry
       },
       {
         id: 'ac2',
@@ -119,7 +119,7 @@ const categoryData = {
         investment: '$28K',
         reasoning: 'Mini bags and crossbody styles gaining momentum with urban professionals and students.',
         trends: ['Mini Bags', 'Crossbody Bags', 'Structured Handbags'],
-        products: mockRelatedProducts.slice(1, 3)
+        products: mockRelatedProducts.accessories.bags
       }
     ]
   },
@@ -136,7 +136,7 @@ const categoryData = {
         investment: '$35K',
         reasoning: 'Combat boots showing strong cross-demographic appeal with grunge revival and practical styling.',
         trends: ['Combat Boots', 'Grunge Revival', 'Platform Shoes'],
-        products: mockRelatedProducts.slice(0, 2)
+        products: mockRelatedProducts.footwear.boots
       },
       {
         id: 'f2',
@@ -147,7 +147,7 @@ const categoryData = {
         investment: '$22K',
         reasoning: 'Platform sandals trending for summer with Y2K revival influence and comfort-focused designs.',
         trends: ['Platform Sandals', 'Chunky Soles', 'Comfort Footwear'],
-        products: mockRelatedProducts.slice(1, 2)
+        products: mockRelatedProducts.footwear.sandals
       }
     ]
   }

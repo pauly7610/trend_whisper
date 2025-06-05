@@ -241,41 +241,255 @@ export const mockTrends = [
   }
 ];
 
-export const mockRelatedProducts = [
-  {
-    id: 'p1',
-    name: 'Floral Midi Dress',
-    brand: 'Anthropologie',
-    image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=100&h=100&fit=crop',
-    confidence: 94,
-    price: '$148',
-    trendId: '1'
+export const mockRelatedProducts = {
+  beauty: {
+    makeup: [
+      {
+        id: 'b1',
+        name: 'Tinted Moisturizer',
+        brand: 'Glossier',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 94,
+        price: '$36',
+        trendId: '5'
+      },
+      {
+        id: 'b2',
+        name: 'Cream Blush',
+        brand: 'Rare Beauty',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 91,
+        price: '$20',
+        trendId: '5'
+      },
+      {
+        id: 'b3',
+        name: 'Lip Oil',
+        brand: 'Fenty Beauty',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 88,
+        price: '$24',
+        trendId: '11'
+      }
+    ],
+    skincare: [
+      {
+        id: 'sk1',
+        name: 'Hyaluronic Acid Serum',
+        brand: 'The Ordinary',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 92,
+        price: '$15',
+        trendId: '19'
+      },
+      {
+        id: 'sk2',
+        name: 'Glass Skin Essence',
+        brand: 'COSRX',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 89,
+        price: '$28',
+        trendId: '19'
+      },
+      {
+        id: 'sk3',
+        name: 'Hydrating Night Cream',
+        brand: 'CeraVe',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 86,
+        price: '$32',
+        trendId: '19'
+      }
+    ],
+    tools: [
+      {
+        id: 'bt1',
+        name: 'Rose Quartz Gua Sha',
+        brand: 'Mount Lai',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 85,
+        price: '$28',
+        trendId: '15'
+      },
+      {
+        id: 'bt2',
+        name: 'Jade Roller Set',
+        brand: 'Herbivore',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop',
+        confidence: 82,
+        price: '$35',
+        trendId: '15'
+      }
+    ]
   },
-  {
-    id: 'p2',
-    name: 'Cotton Prairie Blouse',
-    brand: 'Anthropologie',
-    image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=100&h=100&fit=crop',
-    confidence: 87,
-    price: '$98',
-    trendId: '1'
+  apparel: {
+    bottoms: [
+      {
+        id: 'ab1',
+        name: 'High Waisted Wide Leg Jeans',
+        brand: 'Urban Outfitters',
+        image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop',
+        confidence: 93,
+        price: '$89',
+        trendId: '8'
+      },
+      {
+        id: 'ab2',
+        name: 'Vintage Baggy Denim',
+        brand: 'BDG',
+        image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop',
+        confidence: 90,
+        price: '$79',
+        trendId: '8'
+      },
+      {
+        id: 'ab3',
+        name: 'Relaxed Fit Cargo Pants',
+        brand: 'Dickies',
+        image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop',
+        confidence: 87,
+        price: '$95',
+        trendId: '10'
+      }
+    ],
+    dresses: [
+      {
+        id: 'ad1',
+        name: 'Mini Bubble Hem Dress',
+        brand: 'Reformation',
+        image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=100&h=100&fit=crop',
+        confidence: 91,
+        price: '$168',
+        trendId: '14'
+      },
+      {
+        id: 'ad2',
+        name: 'Puff Sleeve Mini Dress',
+        brand: 'Ganni',
+        image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=100&h=100&fit=crop',
+        confidence: 88,
+        price: '$145',
+        trendId: '14'
+      }
+    ],
+    tops: [
+      {
+        id: 'at1',
+        name: 'Vintage Band Tee - Nirvana',
+        brand: 'Daydreamer',
+        image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=100&h=100&fit=crop',
+        confidence: 89,
+        price: '$68',
+        trendId: '6'
+      },
+      {
+        id: 'at2',
+        name: 'Oversized Band Tee - The Cure',
+        brand: 'Urban Outfitters',
+        image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=100&h=100&fit=crop',
+        confidence: 85,
+        price: '$45',
+        trendId: '6'
+      }
+    ]
   },
-  {
-    id: 'p3',
-    name: 'Delicate Chain Necklace',
-    brand: 'Urban Outfitters',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&h=100&fit=crop',
-    confidence: 91,
-    price: '$29',
-    trendId: '2'
+  accessories: {
+    jewelry: [
+      {
+        id: 'aj1',
+        name: 'Delicate Gold Chain Necklace',
+        brand: 'Mejuri',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&h=100&fit=crop',
+        confidence: 92,
+        price: '$85',
+        trendId: '2'
+      },
+      {
+        id: 'aj2',
+        name: 'Chunky Gold Chain Bracelet',
+        brand: 'Pandora',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&h=100&fit=crop',
+        confidence: 89,
+        price: '$125',
+        trendId: '7'
+      },
+      {
+        id: 'aj3',
+        name: 'Pearl Drop Earrings',
+        brand: 'Anthropologie',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&h=100&fit=crop',
+        confidence: 86,
+        price: '$42',
+        trendId: '17'
+      }
+    ],
+    bags: [
+      {
+        id: 'abg1',
+        name: 'Mini Crossbody Bag',
+        brand: 'Marc Jacobs',
+        image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&h=100&fit=crop',
+        confidence: 88,
+        price: '$195',
+        trendId: 'bags'
+      },
+      {
+        id: 'abg2',
+        name: 'Structured Mini Handbag',
+        brand: 'Staud',
+        image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&h=100&fit=crop',
+        confidence: 84,
+        price: '$245',
+        trendId: 'bags'
+      }
+    ]
   },
-  {
-    id: 'p4',
-    name: 'Stacking Ring Set',
-    brand: 'Urban Outfitters',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&h=100&fit=crop',
-    confidence: 88,
-    price: '$24',
-    trendId: '2'
+  footwear: {
+    boots: [
+      {
+        id: 'fb1',
+        name: 'Platform Combat Boots',
+        brand: 'Dr. Martens',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop',
+        confidence: 91,
+        price: '$180',
+        trendId: '16'
+      },
+      {
+        id: 'fb2',
+        name: 'Chunky Combat Boots',
+        brand: 'Steve Madden',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop',
+        confidence: 87,
+        price: '$120',
+        trendId: '16'
+      }
+    ],
+    sandals: [
+      {
+        id: 'fs1',
+        name: 'Platform Strappy Sandals',
+        brand: 'Jeffrey Campbell',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop',
+        confidence: 83,
+        price: '$165',
+        trendId: '4'
+      },
+      {
+        id: 'fs2',
+        name: 'Chunky Platform Sandals',
+        brand: 'Naked Wolfe',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop',
+        confidence: 79,
+        price: '$198',
+        trendId: '4'
+      }
+    ]
   }
+};
+
+// Legacy fallback for backward compatibility
+export const mockRelatedProducts as any = [
+  ...mockRelatedProducts.beauty.makeup,
+  ...mockRelatedProducts.apparel.bottoms.slice(0, 2)
 ];
