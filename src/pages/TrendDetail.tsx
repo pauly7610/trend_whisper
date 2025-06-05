@@ -1,15 +1,18 @@
-
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowUp, ThumbsUp, ThumbsDown, ChevronDown } from 'lucide-react';
+import { ArrowUp, ChevronDown, Download } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { FeedbackInterface } from '@/components/FeedbackInterface';
 import { AssortmentPanel } from '@/components/AssortmentPanel';
+import { CollaborationPanel } from '@/components/CollaborationPanel';
+import { Button } from '@/components/ui/button';
 import { mockTrends, mockRelatedProducts } from '@/data/mockData';
+import { useNotifications } from '@/hooks/useNotifications';
 
 const TrendDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { showSuccess } = useNotifications();
   const [showAssortment, setShowAssortment] = useState(false);
 
   const trend = mockTrends.find(t => t.id === id);
@@ -20,17 +23,46 @@ const TrendDetail = () => {
 
   const relatedProducts = mockRelatedProducts.filter(p => p.trendId === trend.id);
 
+  const exportTrendReport = () => {
+    const data = {
+      trend_id: trend.id,
+      export_date: new Date().toISOString(),
+      trend_details: trend,
+      related_products: relatedProducts,
+      forecast_timeline: {
+        current_phase: "Early adoption",
+        peak_estimate: "3-4 weeks",
+        decline_estimate: "8-10 weeks"
+      }
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `trend-report-${trend.id}-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    
+    showSuccess('Trend report exported successfully');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-amber-50">
       <Header />
       
       <main className="container mx-auto px-6 py-8">
-        <button
-          onClick={() => navigate('/')}
-          className="text-stone-600 hover:text-stone-800 mb-6 transition-colors"
-        >
-          ← Back to Trends
-        </button>
+        <div className="flex items-center justify-between mb-6">
+          <button
+            onClick={() => navigate('/')}
+            className="text-stone-600 hover:text-stone-800 transition-colors"
+          >
+            ← Back to Trends
+          </button>
+          <Button onClick={exportTrendReport} className="flex items-center space-x-2">
+            <Download className="w-4 h-4" />
+            <span>Export Report</span>
+          </Button>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
@@ -157,6 +189,8 @@ const TrendDetail = () => {
                 </div>
               </div>
             </div>
+
+            <CollaborationPanel trendId={trend.id} />
           </div>
         </div>
       </main>

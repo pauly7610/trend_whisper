@@ -1,5 +1,5 @@
 
-import { Search } from 'lucide-react';
+import { Search, Settings as SettingsIcon } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -42,6 +42,14 @@ export const Header = ({ onSearchChange, searchQuery = '' }: HeaderProps) => {
                 Trends
               </button>
               <button 
+                onClick={() => navigate('/compare')}
+                className={`${
+                  isActive('/compare') ? 'text-amber-600' : 'text-stone-600'
+                } hover:text-stone-800 transition-colors font-light`}
+              >
+                Compare
+              </button>
+              <button 
                 onClick={() => navigate('/assortment')}
                 className={`${
                   isActive('/assortment') ? 'text-amber-600' : 'text-stone-600'
@@ -71,6 +79,14 @@ export const Header = ({ onSearchChange, searchQuery = '' }: HeaderProps) => {
                 className="pl-10 pr-4 py-2 border border-stone-200 rounded-full bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:border-transparent transition-all"
               />
             </div>
+            <button
+              onClick={() => navigate('/settings')}
+              className={`p-2 rounded-full hover:bg-stone-100 transition-colors ${
+                isActive('/settings') ? 'text-amber-600' : 'text-stone-600'
+              }`}
+            >
+              <SettingsIcon className="w-5 h-5" />
+            </button>
             <div className="w-8 h-8 bg-gradient-to-br from-amber-100 to-stone-200 rounded-full"></div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 
-import { ArrowUp, ArrowDown } from 'lucide-react';
+import { ArrowUp, ArrowDown, Plus } from 'lucide-react';
 import { Sparkline } from '@/components/Sparkline';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 interface TrendCardProps {
   trend: {
@@ -21,8 +22,17 @@ interface TrendCardProps {
 export const TrendCard = ({ trend }: TrendCardProps) => {
   const navigate = useNavigate();
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on the compare button
+    if ((e.target as HTMLElement).closest('.compare-button')) {
+      return;
+    }
     navigate(`/trend/${trend.id}`);
+  };
+
+  const handleCompareClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/compare?trends=${trend.id}`);
   };
 
   return (
@@ -71,9 +81,19 @@ export const TrendCard = ({ trend }: TrendCardProps) => {
           </div>
         </div>
 
-        <div className="text-sm text-stone-500 bg-stone-50 rounded-lg p-3">
+        <div className="text-sm text-stone-500 bg-stone-50 rounded-lg p-3 mb-4">
           {trend.forecast}
         </div>
+
+        <Button
+          onClick={handleCompareClick}
+          variant="outline"
+          size="sm"
+          className="compare-button w-full flex items-center justify-center space-x-2"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Compare</span>
+        </Button>
       </div>
     </div>
   );
