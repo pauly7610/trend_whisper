@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { TrendingUp, ArrowUp, ArrowDown, Star, Package } from 'lucide-react';
+import { TrendingUp, Package, ChevronDown } from 'lucide-react';
 import { mockTrends, mockRelatedProducts } from '@/data/mockData';
 import { AssortmentPanel } from '@/components/AssortmentPanel';
 
@@ -13,67 +13,160 @@ interface RecommendationCard {
   reasoning: string;
   trends: string[];
   products: any[];
+  subcategory?: string;
 }
 
-const mockRecommendations: RecommendationCard[] = [
-  {
-    id: '1',
-    category: 'Beauty',
-    priority: 'high',
-    impact: 94,
-    investment: '$25K',
-    reasoning: 'Clean Girl Makeup and Glass Skin trends showing explosive growth with 6+ month projected lifespan',
-    trends: ['Clean Girl Makeup', 'Glass Skin Routine', 'Strawberry Makeup'],
-    products: mockRelatedProducts.slice(0, 2)
+const categoryData = {
+  beauty: {
+    name: 'Beauty',
+    description: 'Cosmetics, skincare, and personal care products',
+    recommendations: [
+      {
+        id: 'b1',
+        category: 'Beauty',
+        subcategory: 'Makeup',
+        priority: 'high' as const,
+        impact: 94,
+        investment: '$25K',
+        reasoning: 'Clean Girl Makeup trend showing explosive growth with 6+ month projected lifespan. Perfect for minimalist beauty consumers.',
+        trends: ['Clean Girl Makeup', 'Glass Skin Routine', 'Strawberry Makeup'],
+        products: mockRelatedProducts.slice(0, 3)
+      },
+      {
+        id: 'b2',
+        category: 'Beauty',
+        subcategory: 'Skincare',
+        priority: 'high' as const,
+        impact: 89,
+        investment: '$35K',
+        reasoning: 'Glass Skin routine driving demand for hydrating serums and lightweight moisturizers with K-beauty influence.',
+        trends: ['Glass Skin Routine', 'Korean Skincare', 'Hyaluronic Acid'],
+        products: mockRelatedProducts.slice(1, 4)
+      },
+      {
+        id: 'b3',
+        category: 'Beauty',
+        subcategory: 'Tools',
+        priority: 'medium' as const,
+        impact: 76,
+        investment: '$15K',
+        reasoning: 'Facial tools gaining traction with wellness-focused consumers, especially gua sha and jade rollers.',
+        trends: ['Facial Tools', 'Gua Sha', 'Self Care Rituals'],
+        products: mockRelatedProducts.slice(2, 4)
+      }
+    ]
   },
-  {
-    id: '2',
-    category: 'Apparel',
-    priority: 'high',
-    impact: 91,
-    investment: '$45K',
-    reasoning: 'Y2K revival driving wide leg jeans and bubble skirts with massive growth potential',
-    trends: ['Wide Leg Jeans', 'Bubble Skirts', 'Vintage Band Tees'],
-    products: mockRelatedProducts.slice(0, 3)
+  apparel: {
+    name: 'Apparel',
+    description: 'Clothing and fashion items',
+    recommendations: [
+      {
+        id: 'a1',
+        category: 'Apparel',
+        subcategory: 'Bottoms',
+        priority: 'high' as const,
+        impact: 91,
+        investment: '$45K',
+        reasoning: 'Y2K revival driving wide leg jeans with massive growth potential across age demographics.',
+        trends: ['Wide Leg Jeans', 'Y2K Fashion', 'Baggy Fits'],
+        products: mockRelatedProducts.slice(0, 3)
+      },
+      {
+        id: 'a2',
+        category: 'Apparel',
+        subcategory: 'Dresses',
+        priority: 'high' as const,
+        impact: 85,
+        investment: '$30K',
+        reasoning: 'Bubble skirts and mini dresses trending with Gen Z, perfect for spring/summer collections.',
+        trends: ['Bubble Skirts', 'Mini Dresses', 'Preppy Core'],
+        products: mockRelatedProducts.slice(1, 3)
+      },
+      {
+        id: 'a3',
+        category: 'Apparel',
+        subcategory: 'Tops',
+        priority: 'medium' as const,
+        impact: 79,
+        investment: '$20K',
+        reasoning: 'Vintage band tees showing sustained popularity with authentic vintage pieces commanding premium prices.',
+        trends: ['Vintage Band Tees', 'Grunge Revival', 'Oversized Fits'],
+        products: mockRelatedProducts.slice(0, 2)
+      }
+    ]
   },
-  {
-    id: '3',
-    category: 'Accessories',
-    priority: 'medium',
-    impact: 78,
-    investment: '$15K',
-    reasoning: 'Minimalist jewelry trend aligns with mindful consumption, sustained growth expected',
-    trends: ['Minimalist Jewelry', 'Chunky Gold Chains', 'Pearl Accessories'],
-    products: mockRelatedProducts.slice(0, 2)
+  accessories: {
+    name: 'Accessories',
+    description: 'Jewelry, bags, and fashion accessories',
+    recommendations: [
+      {
+        id: 'ac1',
+        category: 'Accessories',
+        subcategory: 'Jewelry',
+        priority: 'high' as const,
+        impact: 78,
+        investment: '$15K',
+        reasoning: 'Minimalist jewelry trend aligns with mindful consumption, sustained growth expected with gold pieces.',
+        trends: ['Minimalist Jewelry', 'Chunky Gold Chains', 'Pearl Accessories'],
+        products: mockRelatedProducts.slice(0, 2)
+      },
+      {
+        id: 'ac2',
+        category: 'Accessories',
+        subcategory: 'Bags',
+        priority: 'medium' as const,
+        impact: 72,
+        investment: '$28K',
+        reasoning: 'Mini bags and crossbody styles gaining momentum with urban professionals and students.',
+        trends: ['Mini Bags', 'Crossbody Bags', 'Structured Handbags'],
+        products: mockRelatedProducts.slice(1, 3)
+      }
+    ]
   },
-  {
-    id: '4',
-    category: 'Footwear',
-    priority: 'medium',
-    impact: 72,
-    investment: '$35K',
-    reasoning: 'Combat boots showing strong cross-demographic appeal with grunge revival',
-    trends: ['Combat Boots', 'Platform Sandals'],
-    products: mockRelatedProducts.slice(0, 1)
+  footwear: {
+    name: 'Footwear',
+    description: 'Shoes and boots',
+    recommendations: [
+      {
+        id: 'f1',
+        category: 'Footwear',
+        subcategory: 'Boots',
+        priority: 'high' as const,
+        impact: 82,
+        investment: '$35K',
+        reasoning: 'Combat boots showing strong cross-demographic appeal with grunge revival and practical styling.',
+        trends: ['Combat Boots', 'Grunge Revival', 'Platform Shoes'],
+        products: mockRelatedProducts.slice(0, 2)
+      },
+      {
+        id: 'f2',
+        category: 'Footwear',
+        subcategory: 'Sandals',
+        priority: 'medium' as const,
+        impact: 68,
+        investment: '$22K',
+        reasoning: 'Platform sandals trending for summer with Y2K revival influence and comfort-focused designs.',
+        trends: ['Platform Sandals', 'Chunky Soles', 'Comfort Footwear'],
+        products: mockRelatedProducts.slice(1, 2)
+      }
+    ]
   }
-];
+};
 
 export const AssortmentRecommendations = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<keyof typeof categoryData>('beauty');
   const [sortBy, setSortBy] = useState<'impact' | 'investment' | 'priority'>('impact');
 
-  const categories = ['all', 'beauty', 'apparel', 'accessories', 'footwear'];
-
-  const filteredRecommendations = mockRecommendations
-    .filter(rec => selectedCategory === 'all' || rec.category.toLowerCase() === selectedCategory)
-    .sort((a, b) => {
-      if (sortBy === 'impact') return b.impact - a.impact;
-      if (sortBy === 'priority') {
-        const priorityOrder = { high: 3, medium: 2, low: 1 };
-        return priorityOrder[b.priority] - priorityOrder[a.priority];
-      }
-      return parseInt(b.investment.replace('$', '').replace('K', '')) - parseInt(a.investment.replace('$', '').replace('K', ''));
-    });
+  const currentCategoryData = categoryData[selectedCategory];
+  
+  const sortedRecommendations = [...currentCategoryData.recommendations].sort((a, b) => {
+    if (sortBy === 'impact') return b.impact - a.impact;
+    if (sortBy === 'priority') {
+      const priorityOrder = { high: 3, medium: 2, low: 1 };
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
+    }
+    return parseInt(b.investment.replace('$', '').replace('K', '')) - parseInt(a.investment.replace('$', '').replace('K', ''));
+  });
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -86,30 +179,33 @@ export const AssortmentRecommendations = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header and Controls */}
+      {/* Category Selection Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-light text-stone-800">AI Recommendations</h2>
-          <p className="text-sm text-stone-600">Strategic product selection based on trend forecasts</p>
+          <h2 className="text-2xl font-light text-stone-800">Category Assortment Planning</h2>
+          <p className="text-sm text-stone-600">AI-powered recommendations for your category</p>
         </div>
         
         <div className="flex gap-3">
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white"
-          >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>
-                {cat === 'all' ? 'All Categories' : cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value as keyof typeof categoryData)}
+              className="appearance-none px-4 py-3 pr-10 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-200 min-w-[180px]"
+            >
+              {Object.entries(categoryData).map(([key, data]) => (
+                <option key={key} value={key}>
+                  {data.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+          </div>
           
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white"
+            className="px-3 py-3 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-200"
           >
             <option value="impact">Sort by Impact</option>
             <option value="priority">Sort by Priority</option>
@@ -118,14 +214,45 @@ export const AssortmentRecommendations = () => {
         </div>
       </div>
 
+      {/* Category Overview */}
+      <div className="bg-gradient-to-r from-amber-50 to-stone-50 rounded-2xl p-6 border border-amber-200">
+        <h3 className="text-lg font-medium text-stone-800 mb-2">{currentCategoryData.name} Category</h3>
+        <p className="text-stone-600 mb-4">{currentCategoryData.description}</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-light text-stone-800">{sortedRecommendations.length}</div>
+            <div className="text-sm text-stone-600">Active Recommendations</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-light text-stone-800">
+              {sortedRecommendations.filter(r => r.priority === 'high').length}
+            </div>
+            <div className="text-sm text-stone-600">High Priority</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-light text-stone-800">
+              ${sortedRecommendations.reduce((sum, r) => sum + parseInt(r.investment.replace('$', '').replace('K', '')), 0)}K
+            </div>
+            <div className="text-sm text-stone-600">Total Investment</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-light text-stone-800">
+              {Math.round(sortedRecommendations.reduce((sum, r) => sum + r.impact, 0) / sortedRecommendations.length)}%
+            </div>
+            <div className="text-sm text-stone-600">Avg Impact Score</div>
+          </div>
+        </div>
+      </div>
+
       {/* Recommendations Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {filteredRecommendations.map((recommendation) => (
+        {sortedRecommendations.map((recommendation) => (
           <div key={recommendation.id} className="bg-white rounded-2xl p-6 shadow-sm border border-stone-200 hover:shadow-lg transition-all duration-300">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h3 className="text-lg font-light text-stone-800 mb-1">{recommendation.category}</h3>
+                <h3 className="text-lg font-light text-stone-800 mb-1">{recommendation.subcategory}</h3>
                 <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(recommendation.priority)}`}>
                   {recommendation.priority.toUpperCase()} PRIORITY
                 </span>
@@ -167,34 +294,6 @@ export const AssortmentRecommendations = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Summary Stats */}
-      <div className="bg-gradient-to-r from-amber-50 to-stone-50 rounded-2xl p-6 border border-amber-200">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="text-center">
-            <div className="text-2xl font-light text-stone-800">{filteredRecommendations.length}</div>
-            <div className="text-sm text-stone-600">Active Recommendations</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-light text-stone-800">
-              {filteredRecommendations.filter(r => r.priority === 'high').length}
-            </div>
-            <div className="text-sm text-stone-600">High Priority</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-light text-stone-800">
-              ${filteredRecommendations.reduce((sum, r) => sum + parseInt(r.investment.replace('$', '').replace('K', '')), 0)}K
-            </div>
-            <div className="text-sm text-stone-600">Total Investment</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-light text-stone-800">
-              {Math.round(filteredRecommendations.reduce((sum, r) => sum + r.impact, 0) / filteredRecommendations.length)}%
-            </div>
-            <div className="text-sm text-stone-600">Avg Impact Score</div>
-          </div>
-        </div>
       </div>
     </div>
   );
