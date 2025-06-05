@@ -1,73 +1,142 @@
-# Welcome to your Lovable project
 
-## Project info
+# Trend Intelligence Dashboard
 
-**URL**: https://lovable.dev/projects/d591e7fc-0fa3-487d-a487-3b5de9c7a0b9
+A modern React-based trend intelligence platform for fashion and beauty retail analytics.
 
-## How can I edit this code?
+## Overview
 
-There are several ways of editing your application.
+This application provides comprehensive trend analysis and forecasting capabilities for fashion and beauty retailers. It features real-time trend monitoring, product assortment recommendations, and collaborative planning tools to help brands stay ahead of market movements.
 
-**Use Lovable**
+## Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d591e7fc-0fa3-487d-a487-3b5de9c7a0b9) and start prompting.
+### 📊 Trend Analytics
+- Real-time trend detection across social media and fashion platforms
+- Popularity scoring and momentum tracking
+- Regional trend analysis (US, EU markets)
+- Predictive forecasting with timeline projections
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🛍️ Product Intelligence
+- AI-powered product recommendations based on trending patterns
+- Confidence scoring for assortment decisions
+- Cross-category trend correlation analysis
+- Inventory optimization suggestions
 
-**Use your preferred IDE**
+### 📈 Data Visualization
+- Interactive trend charts and sparklines
+- Comparative analysis tools
+- Source breakdown analytics (TikTok, Instagram, Fashion Blogs)
+- Export capabilities for reporting
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🤝 Collaboration Tools
+- Team feedback and annotation system
+- Shared trend watchlists
+- Export functionality for stakeholder reports
+- Real-time collaboration features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Technology Stack
 
-Follow these steps:
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite for fast development and building
+- **Styling**: Tailwind CSS for responsive design
+- **UI Components**: shadcn/ui component library
+- **Charts**: Recharts for data visualization
+- **Icons**: Lucide React
+- **State Management**: TanStack Query for server state
+- **Routing**: React Router DOM
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Project Structure
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── Header.tsx      # Main navigation
+│   ├── TrendCard.tsx   # Trend display component
+│   └── ...
+├── pages/              # Route components
+│   ├── Index.tsx       # Dashboard home
+│   ├── TrendDetail.tsx # Individual trend analysis
+│   ├── Analytics.tsx   # Analytics dashboard
+│   └── ...
+├── data/               # Mock data and types
+├── hooks/              # Custom React hooks
+└── lib/                # Utility functions
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Getting Started
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd trend-intelligence-dashboard
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Start the development server
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Features in Detail
 
-## What technologies are used for this project?
+### Trend Categories
+- **Beauty**: Makeup trends, skincare routines, beauty tools
+- **Apparel**: Clothing styles, seasonal fashion, silhouettes
+- **Accessories**: Jewelry, bags, fashion accessories
+- **Footwear**: Shoe trends, seasonal footwear, style movements
 
-This project is built with:
+### Analytics Capabilities
+- Social media sentiment analysis
+- Growth trajectory forecasting
+- Market saturation indicators
+- Cross-demographic trend adoption rates
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Export Features
+- JSON trend reports with forecasting data
+- Comprehensive product recommendations
+- Timeline analysis for business planning
+- Confidence scoring for decision making
 
-## How can I deploy this project?
+## Data Sources
 
-Simply open [Lovable](https://lovable.dev/projects/d591e7fc-0fa3-487d-a487-3b5de9c7a0b9) and click on Share -> Publish.
+The platform aggregates trend data from:
+- Social media platforms (TikTok, Instagram)
+- Fashion blogs and publications
+- Retail performance data
+- Consumer behavior analytics
 
-## Can I connect a custom domain to my Lovable project?
+## Contributing
 
-Yes, you can!
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For questions or support, please open an issue in the repository or contact the development team.
