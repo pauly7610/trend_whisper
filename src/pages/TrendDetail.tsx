@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowUp, ChevronDown, Download } from 'lucide-react';
@@ -21,7 +22,25 @@ const TrendDetail = () => {
     return <div>Trend not found</div>;
   }
 
-  const relatedProducts = mockRelatedProducts.filter(p => p.trendId === trend.id);
+  // Get related products based on trend category and specific trend ID
+  const getRelatedProducts = () => {
+    const allProducts = [
+      ...mockRelatedProducts.beauty.makeup,
+      ...mockRelatedProducts.beauty.skincare,
+      ...mockRelatedProducts.beauty.tools,
+      ...mockRelatedProducts.apparel.bottoms,
+      ...mockRelatedProducts.apparel.dresses,
+      ...mockRelatedProducts.apparel.tops,
+      ...mockRelatedProducts.accessories.jewelry,
+      ...mockRelatedProducts.accessories.bags,
+      ...mockRelatedProducts.footwear.boots,
+      ...mockRelatedProducts.footwear.sandals
+    ];
+    
+    return allProducts.filter(p => p.trendId === trend.id);
+  };
+
+  const relatedProducts = getRelatedProducts();
 
   const exportTrendReport = () => {
     const data = {
