@@ -487,9 +487,3 @@ export const mockRelatedProducts = {
     ]
   }
 };
-
-// Legacy fallback for backward compatibility
-export const mockRelatedProducts as any = [
-  ...mockRelatedProducts.beauty.makeup,
-  ...mockRelatedProducts.apparel.bottoms.slice(0, 2)
-];
