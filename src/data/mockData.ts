@@ -1,4 +1,3 @@
-
 export const mockTrends = [
   {
     id: '1',
@@ -71,6 +70,174 @@ export const mockTrends = [
     forecast: 'Nostalgic appeal driving steady growth, perfect for UO demographic',
     sparklineData: [64, 67, 70, 73, 76, 78, 79],
     region: 'us'
+  },
+  {
+    id: '7',
+    title: 'Chunky Gold Chains',
+    category: 'accessories',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=300&fit=crop',
+    popularity: 88,
+    change: 27,
+    sourceCount: 987,
+    forecast: 'Statement jewelry trend gaining momentum, expected 4-month run',
+    sparklineData: [61, 65, 71, 78, 82, 85, 88],
+    region: 'us'
+  },
+  {
+    id: '8',
+    title: 'Wide Leg Jeans',
+    category: 'apparel',
+    image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=300&fit=crop',
+    popularity: 91,
+    change: 38,
+    sourceCount: 1534,
+    forecast: 'Y2K revival driving massive growth, prime for seasonal push',
+    sparklineData: [53, 58, 65, 73, 81, 87, 91],
+    region: 'us'
+  },
+  {
+    id: '9',
+    title: 'Claw Clips',
+    category: 'accessories',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop',
+    popularity: 85,
+    change: 22,
+    sourceCount: 756,
+    forecast: 'Practical beauty trend with strong staying power',
+    sparklineData: [63, 67, 72, 77, 80, 83, 85],
+    region: 'us'
+  },
+  {
+    id: '10',
+    title: 'Cargo Pants',
+    category: 'apparel',
+    image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=300&fit=crop',
+    popularity: 73,
+    change: 12,
+    sourceCount: 892,
+    forecast: 'Utility wear trend showing steady growth across demographics',
+    sparklineData: [61, 63, 66, 69, 71, 72, 73],
+    region: 'us'
+  },
+  {
+    id: '11',
+    title: 'Strawberry Makeup',
+    category: 'beauty',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop',
+    popularity: 82,
+    change: 45,
+    sourceCount: 1123,
+    forecast: 'Viral beauty trend with strong summer correlation',
+    sparklineData: [37, 42, 51, 62, 71, 78, 82],
+    region: 'us'
+  },
+  {
+    id: '12',
+    title: 'Kitten Heels',
+    category: 'footwear',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop',
+    popularity: 77,
+    change: 19,
+    sourceCount: 645,
+    forecast: 'Professional wear revival driving growth in workplace fashion',
+    sparklineData: [58, 61, 65, 69, 73, 75, 77],
+    region: 'eu'
+  },
+  {
+    id: '13',
+    title: 'Silk Scarves',
+    category: 'accessories',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=300&fit=crop',
+    popularity: 69,
+    change: -5,
+    sourceCount: 423,
+    forecast: 'Classic accessory seeing seasonal decline, expected to stabilize',
+    sparklineData: [74, 73, 71, 70, 69, 69, 69],
+    region: 'eu'
+  },
+  {
+    id: '14',
+    title: 'Bubble Skirts',
+    category: 'apparel',
+    image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=300&fit=crop',
+    popularity: 94,
+    change: 56,
+    sourceCount: 1876,
+    forecast: 'Explosive growth trend, high fashion to mainstream crossover',
+    sparklineData: [38, 45, 58, 71, 82, 89, 94],
+    region: 'us'
+  },
+  {
+    id: '15',
+    title: 'Gua Sha Tools',
+    category: 'beauty',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop',
+    popularity: 71,
+    change: 8,
+    sourceCount: 567,
+    forecast: 'Wellness beauty trend with steady, sustained growth',
+    sparklineData: [63, 65, 67, 68, 69, 70, 71],
+    region: 'us'
+  },
+  {
+    id: '16',
+    title: 'Combat Boots',
+    category: 'footwear',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop',
+    popularity: 86,
+    change: 24,
+    sourceCount: 1234,
+    forecast: 'Grunge revival driving strong performance across age groups',
+    sparklineData: [62, 66, 71, 77, 81, 84, 86],
+    region: 'us'
+  },
+  {
+    id: '17',
+    title: 'Pearl Accessories',
+    category: 'accessories',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=300&fit=crop',
+    popularity: 78,
+    change: 16,
+    sourceCount: 689,
+    forecast: 'Sophisticated trend with cross-generational appeal',
+    sparklineData: [62, 65, 68, 72, 75, 77, 78],
+    region: 'eu'
+  },
+  {
+    id: '18',
+    title: 'Fringe Details',
+    category: 'apparel',
+    image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=300&fit=crop',
+    popularity: 68,
+    change: -12,
+    sourceCount: 445,
+    forecast: 'Western-inspired trend showing signs of fatigue',
+    sparklineData: [80, 77, 74, 71, 69, 68, 68],
+    region: 'us'
+  },
+  {
+    id: '19',
+    title: 'Glass Skin Routine',
+    category: 'beauty',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop',
+    popularity: 89,
+    change: 33,
+    sourceCount: 1345,
+    forecast: 'K-beauty inspired trend with strong international growth',
+    sparklineData: [56, 62, 69, 76, 83, 87, 89],
+    region: 'us'
+  },
+  {
+    id: '20',
+    title: 'Mesh Flats',
+    category: 'footwear',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop',
+    popularity: 75,
+    change: 21,
+    sourceCount: 678,
+    forecast: 'Summer comfort trend with strong growth potential',
+    sparklineData: [54, 58, 63, 68, 72, 74, 75],
+    region: 'eu'
   }
 ];
 
