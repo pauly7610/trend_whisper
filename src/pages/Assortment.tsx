@@ -1,5 +1,6 @@
 
 import { Header } from '@/components/Header';
+import { AssortmentRecommendations } from '@/components/AssortmentRecommendations';
 import { Package, TrendingUp, Calendar, DollarSign } from 'lucide-react';
 
 const Assortment = () => {
@@ -40,11 +41,7 @@ const Assortment = () => {
         </div>
 
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-stone-200">
-          <h2 className="text-2xl font-light text-stone-800 mb-6">Coming Soon</h2>
-          <p className="text-stone-600">
-            This section will show AI-powered assortment recommendations based on trend forecasts,
-            inventory levels, and historical performance data.
-          </p>
+          <AssortmentRecommendations />
         </div>
       </main>
     </div>
