@@ -7,16 +7,67 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.venv/
+venv/
+
+.env.*
+.envrc
+.mypy_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+.cache/
+pip-wheel-metadata/
+.ipynb_checkpoints/
+
+# Build output
+build/
+coverage/
+htmlcov/
+
+# Docker
+*.pid
+*.pid.lock
+docker-compose.override.yml
+postgres_data/
+redis_data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE/editor
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.bak
+
+# ML/Playwright/test artifacts
+results/
+playwright-report/
+output/
+
+# Misc
+*.sqlite3
+*.db
+*.pkl
+*.h5
+*.ckpt
+*.tmp
 *.suo
 *.ntvs*
 *.njsproj

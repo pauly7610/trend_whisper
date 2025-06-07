@@ -1,22 +1,43 @@
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { TrendSelector } from '@/components/TrendSelector';
 import { ComparisonChart } from '@/components/ComparisonChart';
-import { mockTrends } from '@/data/mockData';
 import { ArrowUp, ArrowDown, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNotifications } from '@/hooks/useNotifications';
+import { apiFetch, getToken } from '../lib/api';
 
 const Compare = () => {
   const [searchParams] = useSearchParams();
   const { showSuccess } = useNotifications();
   const initialIds = searchParams.get('trends')?.split(',') || [];
   const [selectedTrends, setSelectedTrends] = useState<string[]>(initialIds);
+  const [trends, setTrends] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const trends = useMemo(() => {
-    return selectedTrends.map(id => mockTrends.find(t => t.id === id)).filter(Boolean);
+  // Fetch selected trends from backend
+  useEffect(() => {
+    const fetchTrends = async () => {
+      if (selectedTrends.length < 1) {
+        setTrends([]);
+        return;
+      }
+      setLoading(true);
+      setError(null);
+      try {
+        const idsParam = selectedTrends.join(',');
+        const data = await apiFetch<{ trends: any[] }>(`/trends?ids=${idsParam}`, { token: getToken() });
+        setTrends(data.trends || []);
+      } catch (e: any) {
+        setError(e.toString());
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTrends();
   }, [selectedTrends]);
 
   const exportComparison = () => {
@@ -73,7 +94,11 @@ const Compare = () => {
           </div>
         )}
 
-        {trends.length >= 2 ? (
+        {loading ? (
+          <div className="text-center py-16 text-stone-600">Loading trends for comparison...</div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-500">{error}</div>
+        ) : trends.length >= 2 ? (
           <div className="space-y-8">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-stone-200">
               <h3 className="text-lg font-medium text-stone-800 mb-4">Popularity Comparison</h3>

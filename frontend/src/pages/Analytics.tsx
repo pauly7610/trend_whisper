@@ -5,59 +5,70 @@ import { Button } from '@/components/ui/button';
 import { useNotifications } from '@/hooks/useNotifications';
 import { Download, TrendingUp, Users, Target } from 'lucide-react';
 
+import { useEffect, useState } from 'react';
+import { apiFetch, getToken } from '../lib/api';
+
 const Analytics = () => {
   const { showSuccess } = useNotifications();
+  const [trendData, setTrendData] = useState<any[]>([]);
+  const [userStats, setUserStats] = useState<any>(null);
+  const [categoryData, setCategoryData] = useState<any[]>([]);
+  const [regionData, setRegionData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string|null>(null);
+  const [userId, setUserId] = useState<string>('me');
 
-  const trendData = [
-    { name: 'Week 1', accuracy: 78, predictions: 23, engagement: 145 },
-    { name: 'Week 2', accuracy: 82, predictions: 31, engagement: 167 },
-    { name: 'Week 3', accuracy: 85, predictions: 28, engagement: 189 },
-    { name: 'Week 4', accuracy: 88, predictions: 35, engagement: 201 },
-    { name: 'Week 5', accuracy: 92, predictions: 42, engagement: 234 },
-  ];
-
-  const categoryData = [
-    { name: 'Dresses', predictions: 45, accuracy: 94 },
-    { name: 'Tops', predictions: 38, accuracy: 91 },
-    { name: 'Bottoms', predictions: 32, accuracy: 89 },
-    { name: 'Outerwear', predictions: 28, accuracy: 93 },
-    { name: 'Accessories', predictions: 24, accuracy: 87 },
-  ];
-
-  const regionData = [
-    { name: 'US', value: 42, color: '#d97706' },
-    { name: 'EU', value: 28, color: '#059669' },
-    { name: 'Asia', value: 20, color: '#dc2626' },
-    { name: 'Other', value: 10, color: '#7c3aed' },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // Get user id
+        let uid = 'me';
+        try {
+          const me = await apiFetch<{ user: { username: string, id?: string } }>('/me', { token: getToken() });
+          uid = me.user.id || me.user.username || 'me';
+          setUserId(uid);
+        } catch {}
+        // Fetch top trends
+        const topTrends = await apiFetch<{ top_trends: any[] }>('/analytics/top-trends', { token: getToken() });
+        setTrendData(topTrends.top_trends);
+        // Fetch user stats
+        const stats = await apiFetch<any>(`/analytics/user-stats/${uid}`, { token: getToken() });
+        setUserStats(stats);
+        // Populate categoryData and regionData if available
+        setCategoryData(stats?.category_performance ?? []);
+        setRegionData(stats?.regional_distribution ?? []);
+      } catch (e:any) {
+        setError(e.toString());
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const exportAnalytics = () => {
     const data = {
       export_date: new Date().toISOString(),
       trend_accuracy: trendData,
-      category_performance: categoryData,
-      regional_distribution: regionData,
-      summary: {
-        overall_accuracy: 92,
-        total_predictions: 156,
-        data_points: 4200000
-      }
+      user_stats: userStats,
     };
-    
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `analytics-report-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
-    
     showSuccess('Analytics report exported successfully');
   };
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading analytics...</div>;
+  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-amber-50">
       <Header />
-      
       <main className="container mx-auto px-6 py-8">
         <div className="mb-8 flex items-center justify-between">
           <div>

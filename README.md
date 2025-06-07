@@ -35,14 +35,130 @@ This application provides comprehensive trend analysis and forecasting capabilit
 
 ## Technology Stack
 
-- **Frontend**: React 18 with TypeScript
-- **Build Tool**: Vite for fast development and building
-- **Styling**: Tailwind CSS for responsive design
-- **UI Components**: shadcn/ui component library
-- **Charts**: Recharts for data visualization
-- **Icons**: Lucide React
-- **State Management**: TanStack Query for server state
-- **Routing**: React Router DOM
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **Tailwind CSS** for responsive design
+- **shadcn/ui** component library
+- **Recharts** for data visualization
+- **Lucide React** for icons
+- **TanStack Query** for server state
+- **React Router DOM** for routing
+
+### Backend & Infra
+- **FastAPI** (Python) for trend-analysis and audio-processing
+- **Node.js/Express** for api-gateway and user-management
+- **Celery** (Python) for background job queue (trend scraping)
+- **PostgreSQL** for persistent data storage
+- **Redis** for Celery broker and caching
+- **Docker Compose** for multi-service orchestration
+
+---
+
+## Architecture Overview
+
+```
+[frontend] <--> [api-gateway] <--> [trend-analysis] <--> [db]
+                              |                |
+                              |                +--> [celery-worker] <--> [redis]
+                              +--> [audio-processing]
+                              +--> [user-management]
+```
+
+- **frontend**: React app (port 3000)
+- **api-gateway**: Auth, proxy, and routing (port 8000)
+- **trend-analysis**: Trend scraping and analytics API (port 8001)
+- **celery-worker**: Background scraping jobs
+- **audio-processing**: Audio transcription and ML (port 8002)
+- **user-management**: User auth/profile service (port 8003)
+- **db**: PostgreSQL (port 5432)
+- **redis**: Redis (port 6379)
+
+---
+
+## Quickstart (Docker Compose)
+
+1. **Build and start all services:**
+   ```bash
+   docker-compose up --build
+   ```
+2. **Access endpoints:**
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - API Gateway: [http://localhost:8000](http://localhost:8000)
+   - Trend Analysis API: [http://localhost:8001](http://localhost:8001)
+   - Audio Processing API: [http://localhost:8002](http://localhost:8002)
+   - User Management API: [http://localhost:8003](http://localhost:8003)
+   - PostgreSQL: `localhost:5432` (user: `postgres`, pass: `postgres`, db: `trends`)
+   - Redis: `localhost:6379`
+
+3. **Environment variables:**
+   - All services are pre-configured for local development via Compose.
+   - Update secrets and URLs as needed in `docker-compose.yml` for production.
+
+---
+
+## Service Details
+
+### trend-analysis
+- FastAPI backend for scraping, trend analytics, and DB integration
+- Exposes `/fetch-trends`, `/fetch-trends-result/{task_id}` for background scraping
+- Uses Celery for long-running jobs (via Redis)
+
+### celery-worker
+- Python Celery worker for background scraping jobs
+- Shares codebase and dependencies with trend-analysis
+
+### api-gateway
+- Node.js Express server
+- Handles JWT authentication, proxies requests to backend services
+
+### frontend
+- React + Vite app
+- Connects to api-gateway for all data/API calls
+
+### audio-processing
+- FastAPI backend for audio transcription and ML
+- Exposes endpoints for audio file upload and processing
+
+### user-management
+- Node.js backend for user authentication and profile management
+
+### db
+- PostgreSQL 14-alpine
+- Persistent storage for all backend services
+
+### redis
+- Redis for Celery broker/result backend and caching
+
+---
+
+## Development Workflow
+
+- All code changes are reflected on rebuild (`docker-compose up --build`).
+- For live reload, mount volumes or use dev commands as needed.
+- Logs for each service are available via Docker Compose output.
+
+---
+
+## Extending the Stack
+
+- Add new services by creating a Dockerfile and extending `docker-compose.yml`.
+- Use environment variables for secrets and inter-service URLs.
+- Add healthchecks, monitoring, or reverse proxies as needed.
+
+---
+
+## Troubleshooting
+
+- If a service fails to start, check logs with `docker-compose logs <service>`.
+- Ensure Docker Desktop or Docker Engine is running.
+- For database migrations or admin, connect to the `db` service using any Postgres client.
+
+---
+
+## License
+
+MIT (or your organization’s preferred license)
 
 ## Project Structure
 

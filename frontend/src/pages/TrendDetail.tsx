@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowUp, ChevronDown, Download } from 'lucide-react';
 import { Header } from '@/components/Header';
@@ -7,40 +7,87 @@ import { FeedbackInterface } from '@/components/FeedbackInterface';
 import { AssortmentPanel } from '@/components/AssortmentPanel';
 import { CollaborationPanel } from '@/components/CollaborationPanel';
 import { Button } from '@/components/ui/button';
-import { mockTrends, mockRelatedProducts } from '@/data/mockData';
 import { useNotifications } from '@/hooks/useNotifications';
+import { apiFetch, getToken } from '../lib/api';
 
 const TrendDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { showSuccess } = useNotifications();
   const [showAssortment, setShowAssortment] = useState(false);
+  const [analyzeResult, setAnalyzeResult] = useState<any>(null);
+  const [analyzeError, setAnalyzeError] = useState<string|null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [trend, setTrend] = useState<any>(null);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string|null>(null);
 
-  const trend = mockTrends.find(t => t.id === id);
+  // Fetch trend details and related products
+  useEffect(() => {
+    const fetchTrend = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const trendData = await apiFetch<any>(`/trends/${id}`, { token: getToken() });
+        setTrend(trendData.trend || trendData);
+        // Try to fetch related products if endpoint exists
+        try {
+          const rel = await apiFetch<any>(`/trends/${id}/related-products`, { token: getToken() });
+          setRelatedProducts(rel.products || rel);
+        } catch {
+          setRelatedProducts([]); // fallback if endpoint not available
+        }
+      } catch (e: any) {
+        setError(e.toString());
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (id) fetchTrend();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-50 to-amber-50">
+        <div className="text-stone-600 text-lg">Loading trend details...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-50 to-amber-50">
+        <div className="text-red-500 text-lg">{error}</div>
+      </div>
+    );
+  }
 
   if (!trend) {
     return <div>Trend not found</div>;
   }
 
-  // Get related products based on trend category and specific trend ID
-  const getRelatedProducts = () => {
-    const allProducts = [
-      ...mockRelatedProducts.beauty.makeup,
-      ...mockRelatedProducts.beauty.skincare,
-      ...mockRelatedProducts.beauty.tools,
-      ...mockRelatedProducts.apparel.bottoms,
-      ...mockRelatedProducts.apparel.dresses,
-      ...mockRelatedProducts.apparel.tops,
-      ...mockRelatedProducts.accessories.jewelry,
-      ...mockRelatedProducts.accessories.bags,
-      ...mockRelatedProducts.footwear.boots,
-      ...mockRelatedProducts.footwear.sandals
-    ];
-    
-    return allProducts.filter(p => p.trendId === trend.id);
+  const handleAnalyze = async () => {
+    setAnalyzing(true);
+    setAnalyzeError(null);
+    setAnalyzeResult(null);
+    try {
+      const res = await apiFetch('/analyze', {
+        body: {
+          transcription: trend.transcription || '',
+          confidence: trend.confidence || 1,
+          user_context: { user_id: 'me', session_id: 'demo' }
+        },
+        token: getToken()
+      });
+      setAnalyzeResult(res);
+    } catch (e:any) {
+      setAnalyzeError(e.toString());
+    } finally {
+      setAnalyzing(false);
+    }
   };
 
-  const relatedProducts = getRelatedProducts();
 
   const exportTrendReport = () => {
     const data = {
@@ -68,8 +115,23 @@ const TrendDetail = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-amber-50">
       <Header />
-      
       <main className="container mx-auto px-6 py-8">
+        {/* --- Trend Analysis Button --- */}
+        <div className="max-w-lg mx-auto mb-6">
+          <button
+            className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+            onClick={handleAnalyze}
+            disabled={analyzing}
+          >
+            {analyzing ? 'Analyzing...' : 'Analyze Trend'}
+          </button>
+          {analyzeError && <div className="text-red-500 mt-2">{analyzeError}</div>}
+          {analyzeResult && (
+            <div className="bg-stone-50 rounded p-4 mt-4">
+              <pre className="text-xs whitespace-pre-wrap">{JSON.stringify(analyzeResult, null, 2)}</pre>
+            </div>
+          )}
+        </div>
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/')}

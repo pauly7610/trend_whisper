@@ -9,6 +9,7 @@ import Assortment from "./pages/Assortment";
 import Analytics from "./pages/Analytics";
 import Compare from "./pages/Compare";
 import Settings from "./pages/Settings";
+import Upload from "./pages/Upload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/upload" element={<Upload />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+grpcio
+protobuf
+transformers
+scikit-learn
+redis
+celery
+kafka-python
+asyncpg
+apscheduler
+playwright
+beautifulsoup4

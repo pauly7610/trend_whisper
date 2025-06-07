@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package trendwhisper;
+
+service AudioProcessing {
+  rpc TranscribeAudio (AudioRequest) returns (TranscriptionResult);
+}
+
+service TrendAnalysis {
+  rpc AnalyzeTrends (TranscriptionResult) returns (TrendResult);
+}
+
+message AudioRequest {
+  string audio_url = 1;
+  string format = 2;
+}
+
+message TranscriptionResult {
+  string transcription = 1;
+  float confidence = 2;
+}
+
+message TrendResult {
+  repeated string trends = 1;
+  string summary = 2;
+  float confidence = 3; // Confidence in trend detection
+  string error = 4;     // Error message if any
+}
+
+// Optional: Add user context for personalized trend analysis
+message UserContext {
+  string user_id = 1;
+  string session_id = 2;
+}
+
+// Optional: Error message for RPCs
+message ErrorResponse {
+  string error = 1;
+  int32 code = 2;
+}

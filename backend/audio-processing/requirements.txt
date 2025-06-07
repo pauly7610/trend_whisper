@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+grpcio
+protobuf
+openai-whisper
+redis
+kafka-python
+python-multipart

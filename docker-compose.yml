@@ -1,0 +1,101 @@
+services:
+  trend-analysis:
+    build:
+      context: ./backend/trend-analysis
+    container_name: trend-analysis
+    command: uvicorn main:app --host 0.0.0.0 --port 8001
+    environment:
+      - POSTGRES_DSN=postgresql://postgres:postgres@db:5432/trends
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+
+  celery-worker:
+    build:
+      context: ./backend/trend-analysis
+    container_name: celery-worker
+    command: celery -A celery_worker.celery_app worker --loglevel=info
+    environment:
+      - POSTGRES_DSN=postgresql://postgres:postgres@db:5432/trends
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  api-gateway:
+    build:
+      context: ./backend/api-gateway
+    container_name: api-gateway
+    command: node index.js
+    environment:
+      - TREND_ANALYSIS_URL=http://trend-analysis:8001
+      - JWT_SECRET=changeme
+    depends_on:
+      - trend-analysis
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    environment:
+      - REACT_APP_API_URL=http://api-gateway:8080
+    depends_on:
+      - api-gateway
+    ports:
+      - "4173:4173"
+    restart: unless-stopped
+
+  audio-processing:
+    build:
+      context: ./backend/audio-processing
+    container_name: audio-processing
+    command: uvicorn main:app --host 0.0.0.0 --port 8002
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8002:8002"
+    restart: unless-stopped
+
+  user-management:
+    build:
+      context: ./backend/user-management
+    container_name: user-management
+    command: node index.js
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8003:8003"
+    restart: unless-stopped
+
+  db:
+    image: postgres:14-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: trends
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

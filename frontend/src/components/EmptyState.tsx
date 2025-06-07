@@ -2,7 +2,7 @@
 import { Search, TrendingUp } from 'lucide-react';
 
 interface EmptyStateProps {
-  type: 'search' | 'trends';
+  type: 'search' | 'trends' | 'error';
   title: string;
   description: string;
   actionText?: string;
@@ -10,7 +10,10 @@ interface EmptyStateProps {
 }
 
 export const EmptyState = ({ type, title, description, actionText, onAction }: EmptyStateProps) => {
-  const Icon = type === 'search' ? Search : TrendingUp;
+  let Icon;
+  if (type === 'search') Icon = Search;
+  else if (type === 'error') Icon = () => (<span className="text-red-500 text-3xl">&#9888;</span>); // Unicode warning icon
+  else Icon = TrendingUp;
 
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
